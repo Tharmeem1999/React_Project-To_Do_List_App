@@ -32,6 +32,13 @@ const App = () => {
     setTasks(updatedTasks)
   }
 
+  const toggleTaskDone = (id) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, done: !task.done } : task
+    );
+    setTasks(updatedTasks);
+  };
+
   const sortTasks = () => {
     const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);
     setTasks(sortedTasks)
@@ -56,6 +63,7 @@ const App = () => {
       <TaskList
         tasks={tasks}
         showOnlyIncomplete={showOnlyIncomplete}
+        toggleTaskDone={toggleTaskDone}
       />
     </div>
   )
