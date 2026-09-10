@@ -1,13 +1,17 @@
 import TaskItem from "./TaskItem";
-// eslint-disable-next-line no-unused-vars
 import EditTaskForm from "./EditTaskForm";
+import { useState } from "react";
 
 const TaskList = ({
     tasks,
     showOnlyIncomplete,
     toggleTaskDone,
-    removeTask
+    removeTask,
+    updateTask
 }) => {
+
+    const [editingTaskId, setEditingTaskId] = useState(null);
+
     return (
         <ul>
             {tasks
@@ -24,11 +28,21 @@ const TaskList = ({
                             gap: "10px"
                         }}
                     >
-                        <TaskItem
-                            task={task}
-                            toggleTaskDone={toggleTaskDone}
-                            removeTask={removeTask}
-                        />
+                        {editingTaskId === task.id ? (
+                            <EditTaskForm
+                                task={task}
+                                setEditingTaskId={setEditingTaskId}
+                                updateTask={updateTask}
+                            />
+                        ) : (
+                            <TaskItem
+                                task={task}
+                                toggleTaskDone={toggleTaskDone}
+                                removeTask={removeTask}
+                                setEditingTaskId={setEditingTaskId}
+                            />
+                        )}
+
                     </li>
                 ))}
         </ul>
