@@ -37,6 +37,15 @@ const App = () => {
     setTasks(updatedTasks);
   }
 
+  const updateTask = ({ taskId, editText, editPriority }) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ?
+        { ...task, text: editText, priority: editPriority }
+        : task
+    );
+    setTasks(updatedTasks)
+  };
+
   const toggleTaskDone = (id) => {
     const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, done: !task.done } : task
@@ -70,6 +79,7 @@ const App = () => {
         showOnlyIncomplete={showOnlyIncomplete}
         toggleTaskDone={toggleTaskDone}
         removeTask={removeTask}
+        updateTask={updateTask}
       />
     </div>
   )
