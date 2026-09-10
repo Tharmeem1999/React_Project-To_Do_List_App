@@ -1,18 +1,28 @@
 import TaskItem from "./TaskItem";
+// eslint-disable-next-line no-unused-vars
 import EditTaskForm from "./EditTaskForm";
 
-const TaskList = () => {
+const TaskList = ({ tasks }) => {
     return (
-        <div>
-            <ul>
-                <li>task 1</li>
-                <li>task 2</li>
-                <li>task 3</li>
-            </ul>
-            <TaskItem />
-            <EditTaskForm />
-        </div>
-
+        <ul>
+            {tasks.map((task) => (
+                <li
+                    key={task.id}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "10px",
+                        borderBottom: "1px solid grey",
+                        gap: "10px"
+                    }}
+                >
+                    <TaskItem
+                        task={task}
+                    />
+                </li>
+            ))}
+        </ul>
     );
 };
 
