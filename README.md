@@ -104,11 +104,25 @@ src/
 │   ├── TaskForm.jsx                # New task form
 │   ├── TaskItem.jsx                # Task row and actions
 │   └── TaskList.jsx                # Filtering, editing state, and list rendering
+├── reducers/
+│   └── taskReducer.js              # Centralized task state transitions
 └── utils/
-    └── localStorageUtils.js        # Read and write browser storage
+	└── localStorageUtils.js        # Read and write browser storage
 ```
 
-`App.jsx` owns the task collection and passes event handlers to the child components. Each add, edit, delete, completion toggle, and sort operation updates React state and persists the resulting array.
+`App.jsx` owns the task collection through React's `useReducer` hook and passes task handlers to the child components. The `taskReducer` centralizes task state transitions for adding, editing, deleting, completing, and sorting tasks. Each reducer action persists the resulting task array to `localStorage` through `localStorageUtils`.
+
+### Reducer Actions
+
+The reducer supports the following action types:
+
+| Action | Purpose |
+| --- | --- |
+| `ADD` | Add a new task. |
+| `REMOVE` | Delete a task by ID. |
+| `UPDATE` | Update a task's description and priority. |
+| `TOGGLE_DONE` | Toggle a task's completion status. |
+| `SORT` | Sort tasks by ascending priority. |
 
 ## Screenshots
 
