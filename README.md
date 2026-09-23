@@ -73,7 +73,7 @@ npm run preview
 6. Enable **Show only incomplete** to hide completed tasks.
 7. Select the sort control to order tasks by ascending priority.
 
-Blank task descriptions are ignored. New tasks start as incomplete, and the form resets to priority `1` after a task is added.
+The app uses a reducer for task state updates and React Context to share action handlers with components without passing them through many levels of props. Blank task descriptions are ignored. New tasks start as incomplete, and the form resets to priority `1` after a task is added.
 
 ## Data Persistence
 
@@ -96,21 +96,23 @@ Data is scoped to the browser and origin. Clearing site data or using a differen
 
 ```text
 src/
-├── App.jsx                         # Application state and task operations
+├── App.jsx                         # Task state, reducer dispatch, and context provider
 ├── main.jsx                        # React entry point
 ├── components/
 │   ├── EditTaskForm.jsx            # Inline task editing
 │   ├── TaskControls.jsx            # Filtering and sorting controls
 │   ├── TaskForm.jsx                # New task form
 │   ├── TaskItem.jsx                # Task row and actions
-│   └── TaskList.jsx                # Filtering, editing state, and list rendering
+│   └── TaskList.jsx                # Filtering and list rendering
+├── contexts/
+│   └── TaskContext.js              # Shared task actions via React Context
 ├── reducers/
 │   └── taskReducer.js              # Centralized task state transitions
 └── utils/
 	└── localStorageUtils.js        # Read and write browser storage
 ```
 
-`App.jsx` owns the task collection through React's `useReducer` hook and passes task handlers to the child components. The `taskReducer` centralizes task state transitions for adding, editing, deleting, completing, and sorting tasks. Each reducer action persists the resulting task array to `localStorage` through `localStorageUtils`.
+`App.jsx` owns the task collection through React's `useReducer` hook and provides task actions through a `TaskContext` provider. This keeps the reducer in charge of state transitions while reducing prop drilling for shared actions like remove, toggle, and update. The `taskReducer` centralizes adding, editing, deleting, completing, and sorting tasks, and each action persists the resulting task array to `localStorage` through `localStorageUtils`.
 
 ### Reducer Actions
 
