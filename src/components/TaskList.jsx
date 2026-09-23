@@ -5,9 +5,6 @@ import { useState } from "react";
 const TaskList = ({
     tasks,
     showOnlyIncomplete,
-    toggleTaskDone,
-    removeTask,
-    updateTask
 }) => {
 
     const [editingTaskId, setEditingTaskId] = useState(null);
@@ -32,13 +29,10 @@ const TaskList = ({
                             <EditTaskForm
                                 task={task}
                                 setEditingTaskId={setEditingTaskId}
-                                updateTask={updateTask}
                             />
                         ) : (
                             <TaskItem
                                 task={task}
-                                toggleTaskDone={toggleTaskDone}
-                                removeTask={removeTask}
                                 setEditingTaskId={setEditingTaskId}
                             />
                         )}
